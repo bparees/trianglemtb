@@ -1,0 +1,13 @@
+setup.cfg
+setup.py
+html_table_parser/__init__.py
+html_table_parser/parser_functions.py
+html_table_parser.egg-info/PKG-INFO
+html_table_parser.egg-info/SOURCES.txt
+html_table_parser.egg-info/dependency_links.txt
+html_table_parser.egg-info/not-zip-safe
+html_table_parser.egg-info/pbr.json
+html_table_parser.egg-info/requires.txt
+html_table_parser.egg-info/top_level.txt
+html_table_parser/tests/__init__.py
+html_table_parser/tests/test_html_table_parser.py

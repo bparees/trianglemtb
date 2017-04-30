@@ -1,0 +1,15 @@
+../html_table_parser/__init__.py
+../html_table_parser/parser_functions.py
+../html_table_parser/tests/__init__.py
+../html_table_parser/tests/test_html_table_parser.py
+../html_table_parser/__pycache__/__init__.cpython-35.pyc
+../html_table_parser/__pycache__/parser_functions.cpython-35.pyc
+../html_table_parser/tests/__pycache__/__init__.cpython-35.pyc
+../html_table_parser/tests/__pycache__/test_html_table_parser.cpython-35.pyc
+pbr.json
+dependency_links.txt
+PKG-INFO
+requires.txt
+SOURCES.txt
+not-zip-safe
+top_level.txt

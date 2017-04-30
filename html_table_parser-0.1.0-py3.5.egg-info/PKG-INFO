@@ -1,0 +1,11 @@
+Metadata-Version: 1.1
+Name: html-table-parser
+Version: 0.1.0
+Summary: Transform html tables from soup objects to usable data structures (eg 2D arrays)
+Home-page: https://github.com/ojones/html_table_parser
+Author: Oswald Jones
+Author-email: wakeupoj@gmail.com
+License: MIT
+Download-URL: https://github.com/ojones/html_table_parser/tarball/0.1
+Description: UNKNOWN
+Platform: UNKNOWN
