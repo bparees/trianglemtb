@@ -11,8 +11,7 @@ You can check if a trail is open with
 * is <trail> closed?
 * can i ride <trail>?
 * what is the status of <trail>?
-
-etc.
+* etc.
 
 ### List closed trails
 
