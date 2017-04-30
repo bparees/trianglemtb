@@ -25,7 +25,7 @@ You can list closed trails with
 
 ### List open trails
 
-You can list open trials with
+You can list open trails with
 
 * list trails that are open.
 * list open trails.
