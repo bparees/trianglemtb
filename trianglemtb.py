@@ -60,7 +60,7 @@ def get_welcome_response():
         card_title, speech_output, reprompt_text, should_end_session))
 
 happy_expressions=["Excellent!","Groovy!","Awesome!","Good news!","Cool!","Brilliant!"]
-sad_expressions=["Bummer!","Too bad!","Sorry.","Alas!","Oh no!"]
+sad_expressions=["Bummer!","Too bad!","Sorry.","Alas!","Oh no!", "Curses!"]
 
 def handle_session_end_request():
     card_title = "Session Ended"
@@ -162,8 +162,11 @@ def trail_query(intent, session):
     card_title = intent['name']
     session_attributes = {}
     should_end_session = True
-    trail_name=massage_trail_name(intent['slots']['Trail']['value'])
-    trail=get_trail(get_trail_data(),trail_name)
+    trail_name="unknown"
+    trail=None
+    if 'value' in intent['slots']['Trail']:
+        trail_name=massage_trail_name(intent['slots']['Trail']['value'])
+        trail=get_trail(get_trail_data(),trail_name)
     if trail is None:
         speech_output="Sorry, I couldn't find any information for a trail named %s." % trail_name
     else:
