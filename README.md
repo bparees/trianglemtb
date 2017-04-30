@@ -7,10 +7,10 @@ This is an Alexa skill that reports trail status from the trianglemtb.com site.
 ### Check a trail status
 
 You can check if a trail is open with 
-* is <trail> open?
-* is <trail> closed?
-* can i ride <trail>?
-* what is the status of <trail>?
+* is [trail] open?
+* is [trail] closed?
+* can i ride [trail]?
+* what is the status of [trail]?
 * etc.
 
 ### List closed trails
