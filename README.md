@@ -39,6 +39,7 @@ open trails with
 * where should i ride?
 * tell me what to ride.
 * what trail should i ride?
+* etc.
 
 ## Caveats
 For trails with multiple parts, e.g. cnf and san lee, you must say the 
