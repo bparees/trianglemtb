@@ -1,0 +1,173 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "ClosedTrails",
+      "samples": [
+        "which trails are closed",
+        "what trails are closed",
+        "list the closed trails",
+        "list the trails that are closed",
+        "list closed trails",
+        "list trails that are closed"
+      ],
+      "slots": []
+    },
+    {
+      "name": "OpenTrails",
+      "samples": [
+        "which trails are open",
+        "what trails are open",
+        "list the open trails",
+        "list the trails that are open",
+        "list open trails",
+        "list trails that are open"
+      ],
+      "slots": []
+    },
+    {
+      "name": "PickTrail",
+      "samples": [
+        "what trail should i ride",
+        "what trail should i ride today",
+        "tell me what to ride",
+        "tell me what to ride today",
+        "where should i ride",
+        "where should i ride today"
+      ],
+      "slots": []
+    },
+    {
+      "name": "TrailQuery",
+      "samples": [
+        "is {Trail} open",
+        "is {Trail} closed",
+        "is the {Trail} trail open",
+        "is the {Trail} trail closed",
+        "what is the status of {Trail}",
+        "what is the status of the {Trail} trail",
+        "what is the state of {Trail}",
+        "what is the state of the {Trail} trail",
+        "can I ride {Trail}",
+        "can I ride {Trail} today",
+        "can I ride the {Trail} trail",
+        "can I ride the {Trail} trail today"
+      ],
+      "slots": [
+        {
+          "name": "Trail",
+          "type": "LIST_OF_TRAILS",
+          "samples": []
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "LIST_OF_TRAILS",
+      "values": [
+        {
+          "name": {
+            "value": "beaver dam"
+          }
+        },
+        {
+          "name": {
+            "value": "briar chapel"
+          }
+        },
+        {
+          "name": {
+            "value": "cnf airport"
+          }
+        },
+        {
+          "name": {
+            "value": "cnf school"
+          }
+        },
+        {
+          "name": {
+            "value": "crabtree"
+          }
+        },
+        {
+          "name": {
+            "value": "harris"
+          }
+        },
+        {
+          "name": {
+            "value": "harris lake"
+          }
+        },
+        {
+          "name": {
+            "value": "legend lower"
+          }
+        },
+        {
+          "name": {
+            "value": "legend upper"
+          }
+        },
+        {
+          "name": {
+            "value": "little river"
+          }
+        },
+        {
+          "name": {
+            "value": "new light"
+          }
+        },
+        {
+          "name": {
+            "value": "rtp trails"
+          }
+        },
+        {
+          "name": {
+            "value": "san lee gravity park"
+          }
+        },
+        {
+          "name": {
+            "value": "san lee singletrack"
+          }
+        },
+        {
+          "name": {
+            "value": "carolina north school"
+          }
+        },
+        {
+          "name": {
+            "value": "carolina north airport"
+          }
+        },
+        {
+          "name": {
+            "value": "brumley forest"
+          }
+        },
+        {
+          "name": {
+            "value": "brumley"
+          }
+        }
+      ]
+    }
+  ]
+}
