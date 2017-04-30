@@ -79,9 +79,12 @@ def massage_trail_name(name):
     return name
 
 def get_trail_data():
-    s = urllib.request.urlopen("http://trianglemtb.com/trailstatus.php").read()
-    table=parse.make2d(bs(s,"html.parser")) 
-    return table
+    try:
+        s = urllib.request.urlopen("http://trianglemtb.com/trailstatus.php").read()
+        table=parse.make2d(bs(s,"html.parser")) 
+        return table
+    except:
+        return None
 
 def filter_trails(data,state):
     trails={}
@@ -101,7 +104,13 @@ def get_open_trails(intent, session):
     card_title = intent['name']
     session_attributes = {}
     should_end_session = True
-    trails=filter_trails(get_trail_data(),"open")
+    data=get_trail_data()
+    if data is None:
+        speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, "", should_end_session))
+
+    trails=filter_trails(data,"open")
     if len(trails) == 0:
         speech_output="<say-as interpret-as=\"interjection\">%s</say-as>  There are no open trails right now." % random.choice(sad_expressions)
     else: 
@@ -121,7 +130,12 @@ def get_closed_trails(intent, session):
     card_title = intent['name']
     session_attributes = {}
     should_end_session = True
-    trails=filter_trails(get_trail_data(),"closed")
+    data=get_trail_data()
+    if data is None:
+        speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, "", should_end_session))
+    trails=filter_trails(data,"closed")
     
     if len(trails) == 0:
         speech_output="<say-as interpret-as=\"interjection\">%s</say-as>  There are no closed trails right now." % random.choice(happy_expressions)
@@ -142,7 +156,12 @@ def pick_trail(intent, session):
     card_title = intent['name']
     session_attributes = {}
     should_end_session = True
-    trails=filter_trails(get_trail_data(),"open")
+    data=get_trail_data()
+    if data is None:
+        speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
+        return build_response(session_attributes, build_speechlet_response(
+            card_title, speech_output, "", should_end_session))
+    trails=filter_trails(data,"open")
     if len(trails) == 0:
         speech_output="<say-as interpret-as=\"interjection\">%s</say-as>  There are no open trails right now." % random.choice(sad_expressions)
     else: 
@@ -166,7 +185,12 @@ def trail_query(intent, session):
     trail=None
     if 'value' in intent['slots']['Trail']:
         trail_name=massage_trail_name(intent['slots']['Trail']['value'])
-        trail=get_trail(get_trail_data(),trail_name)
+        data=get_trail_data()
+        if data is None:
+            speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
+            return build_response(session_attributes, build_speechlet_response(
+                card_title, speech_output, "", should_end_session))
+        trail=get_trail(data,trail_name)
     if trail is None:
         speech_output="Sorry, I couldn't find any information for a trail named %s." % trail_name
     else:
