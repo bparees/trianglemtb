@@ -19,8 +19,8 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'card': {
             'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
+            'title': title,
+            'content': re.sub("<.*?>","",output).strip()
         },
         'reprompt': {
             'outputSpeech': {
@@ -99,9 +99,9 @@ def get_trail(data,name):
             return trail
     return None
 
+# OpenTrails intent
 def get_open_trails(intent, session):
-
-    card_title = intent['name']
+    card_title = "List Open Trails"
     session_attributes = {}
     should_end_session = True
     data=get_trail_data()
@@ -125,9 +125,9 @@ def get_open_trails(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, "", should_end_session))
 
+# ClosedTrails intent
 def get_closed_trails(intent, session):
-
-    card_title = intent['name']
+    card_title = "List Closed Trails"
     session_attributes = {}
     should_end_session = True
     data=get_trail_data()
@@ -151,9 +151,9 @@ def get_closed_trails(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, "", should_end_session))
 
+# PickTrail intent
 def pick_trail(intent, session):
-
-    card_title = intent['name']
+    card_title = "Trail Picker"
     session_attributes = {}
     should_end_session = True
     data=get_trail_data()
@@ -176,9 +176,9 @@ def pick_trail(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, "", should_end_session))
 
+# TrailQuery intent
 def trail_query(intent, session):
-
-    card_title = intent['name']
+    card_title = "Trail Status"
     session_attributes = {}
     should_end_session = True
     trail_name="unknown"
