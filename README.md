@@ -43,7 +43,7 @@ open trails with
 
 ## Caveats
 For trails with multiple parts, e.g. cnf and san lee, you must say the 
-full name of trail, e.g. "cnf school", you cannot just say "cnf".  
+full name of the trail, e.g. "cnf school", you cannot just say "cnf".  
 ("cnf school", "carolina north school", and "carolina north forest school" 
 will all resolve, however).
 
