@@ -59,8 +59,8 @@ def get_welcome_response():
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
-happy_expressions=["Excellent!","Groovy!","Awesome!","Good news!","Cool!","Brilliant!"]
-sad_expressions=["Bummer!","Too bad!","Sorry.","Alas!","Oh no!", "Curses!"]
+happy_expressions=["Excellent!","Groovy!","Awesome!","Good news!","Cool!","Brilliant!", "Booya!", "Hurray!", "Huzzah!", "Wahoo!", "Whew.", "Woo hoo!", "Yay!", "Yippee!"]
+sad_expressions=["Bummer!","Too bad!","Sorry.","Alas!","Oh no!", "Curses!", "Argh!", "Aw man!","Boo.", "Oh dear.", "Phooey!", "Shucks!", "Darn!", "Baa.", "D'oh!", "Ruh roh."]
 
 def handle_session_end_request():
     card_title = "Session Ended"
