@@ -4,6 +4,7 @@ at trianglemtb.com and reports information back to the user.
 """
 
 from __future__ import print_function
+from socket import timeout
 import urllib.request
 import re
 from html_table_parser import parser_functions as parse
@@ -80,11 +81,21 @@ def massage_trail_name(name):
 
 def get_trail_data():
     try:
-        s = urllib.request.urlopen("http://trianglemtb.com/trailstatus.php").read()
+        #s = urllib.request.urlopen("http://trianglemtb.com/trailstatus.php",None,5).read()
+        s = urllib.request.urlopen("http://trianglemtb.com/trailstatus.php",None,5).read()
         table=parse.make2d(bs(s,"html.parser")) 
-        return table
-    except:
-        return None
+        return table, None
+    except timeout:
+        logging.error("error: socket timed out")
+    except BaseException as error:
+        print("error: url fetch: ",error)
+
+    card_title = "Service Error"
+    speech_output = "I'm sorry, there was an error accessing the triangle m.t.b. trail status page."
+    should_end_session = True
+    return None, build_response({}, build_speechlet_response(
+        card_title, speech_output, None, should_end_session))
+
 
 def filter_trails(data,state):
     trails={}
@@ -104,11 +115,9 @@ def get_open_trails(intent, session):
     card_title = "List Open Trails"
     session_attributes = {}
     should_end_session = True
-    data=get_trail_data()
+    data, response=get_trail_data()
     if data is None:
-        speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
-        return build_response(session_attributes, build_speechlet_response(
-            card_title, speech_output, "", should_end_session))
+        return response
 
     trails=filter_trails(data,"open")
     if len(trails) == 0:
@@ -130,13 +139,11 @@ def get_closed_trails(intent, session):
     card_title = "List Closed Trails"
     session_attributes = {}
     should_end_session = True
-    data=get_trail_data()
+    data, response=get_trail_data()
     if data is None:
-        speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
-        return build_response(session_attributes, build_speechlet_response(
-            card_title, speech_output, "", should_end_session))
-    trails=filter_trails(data,"closed")
-    
+        return response
+
+    trails=filter_trails(data,"closed")  
     if len(trails) == 0:
         speech_output="<say-as interpret-as=\"interjection\">%s</say-as>  There are no closed trails right now." % random.choice(happy_expressions)
     else:
@@ -156,11 +163,10 @@ def pick_trail(intent, session):
     card_title = "Trail Picker"
     session_attributes = {}
     should_end_session = True
-    data=get_trail_data()
+    data, response=get_trail_data()
     if data is None:
-        speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
-        return build_response(session_attributes, build_speechlet_response(
-            card_title, speech_output, "", should_end_session))
+        return response
+
     trails=filter_trails(data,"open")
     if len(trails) == 0:
         speech_output="<say-as interpret-as=\"interjection\">%s</say-as>  There are no open trails right now." % random.choice(sad_expressions)
@@ -185,11 +191,9 @@ def trail_query(intent, session):
     trail=None
     if 'value' in intent['slots']['Trail']:
         trail_name=massage_trail_name(intent['slots']['Trail']['value'])
-        data=get_trail_data()
+        data, response=get_trail_data()
         if data is None:
-            speech_output="Sorry, I wasn't able to access the triangle mtb trail status service."
-            return build_response(session_attributes, build_speechlet_response(
-                card_title, speech_output, "", should_end_session))
+            return response
         trail=get_trail(data,trail_name)
     if trail is None:
         speech_output="Sorry, I couldn't find any information for a trail named %s." % trail_name
@@ -199,7 +203,7 @@ def trail_query(intent, session):
             suffix="Have a great ride!"
         else:
             prefix="<say-as interpret-as=\"interjection\">%s</say-as>" % random.choice(sad_expressions)
-            suffix="Please don't ride the closed trails."
+            suffix="Please don't ride closed trails."
         pieces=trail[3].split(None,1)
         speech_output="%s %s is marked as %s as of <say-as interpret-as=\"date\" format=\"md\">%s</say-as> at <say-as interpret-as=\"date\">%s</say-as>. %s" % (prefix, trail_name,trail[1],pieces[0],pieces[1],suffix)
 
@@ -294,7 +298,10 @@ def lambda_handler(event, context):
         return on_session_ended(event['request'], event['session'])
 
 def main():
-    table=get_trail_data()
+    table,response=get_trail_data()
+    if table is None:
+        print("Could not retrieve trail data")
+        return
     #filtered=filter_trails(table,"OPEN")
     #print(filtered)
     #atrail=get_trail(table,"beaver dam")
